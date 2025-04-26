@@ -2,11 +2,11 @@ import plotly.figure_factory as ff
 import pandas as pd
 import numpy as np
 
-# 📌 Cargar los datos de tu Excel
-file_path = "Book3.xlsx"  # ← Cambia esto con la ruta real
+#  Cargar los datos de Excel
+file_path = "Book3.xlsx"  
 df = pd.read_excel(file_path)
 
-# 📌 Descargar base de datos de condados con códigos FIPS
+# Descarga base de datos de condados con códigos FIPS
 df_fips = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/laucnty16.csv")
 
 # Asegurar que los nombres coincidan
@@ -16,7 +16,7 @@ df["County"] = df["County"].str.strip()  # Eliminar espacios extra
 # Unir los datos de capacidad con los códigos FIPS
 df_merged = df_fips.merge(df, on="County", how="left")
 
-# 📌 Asegurar formato correcto de FIPS
+# Asegurar formato correcto de FIPS
 df_merged['State FIPS Code'] = df_merged['State FIPS Code'].apply(lambda x: str(x).zfill(2))
 df_merged['County FIPS Code'] = df_merged['County FIPS Code'].apply(lambda x: str(x).zfill(3))
 df_merged['FIPS'] = df_merged['State FIPS Code'] + df_merged['County FIPS Code']
@@ -24,7 +24,7 @@ df_merged['FIPS'] = df_merged['State FIPS Code'] + df_merged['County FIPS Code']
 # Filtrar condados con datos válidos
 df_merged = df_merged.dropna(subset=["Capacity(MW)"])
 
-# 📌 Crear el mapa con Plotly
+#Crear el mapa con Plotly
 colorscale = ["#f7fbff","#ebf3fb","#deebf7","#d2e3f3","#c6dbef","#b3d2e9","#9ecae1",
               "#85bcdb","#6baed6","#57a0ce","#4292c6","#3082be","#2171b5","#1361a9",
               "#08519c","#0b4083","#08306b"]
